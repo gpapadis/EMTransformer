@@ -14,7 +14,7 @@ setup_logging()
 
 
 class Config():
-    DATA_PREFIX = "data"
+    DATA_PREFIX = "/methods/EMTransformer/data"
     EXPERIMENT_PREFIX = "experiments"
 
     MODEL_CLASSES = {
