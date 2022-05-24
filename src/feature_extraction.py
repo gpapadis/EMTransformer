@@ -1,7 +1,7 @@
 import logging
 
 from logging_customized import setup_logging
-from src.data_representation import InputFeatures
+from data_representation import InputFeatures
 
 setup_logging()
 
