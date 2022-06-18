@@ -3,7 +3,8 @@ import os
 import numpy as np
 
 import torch
-from sklearn.metrics import classification_report, f1_score
+from sklearn.metrics import classification_report, f1_score, precision_score,\
+    recall_score, confusion_matrix
 from tqdm import tqdm
 
 from logging_customized import setup_logging
@@ -60,11 +61,26 @@ class Evaluation:
 
         simple_accuracy = (predicted_class == labels).mean()
         f1 = f1_score(y_true=labels, y_pred=predicted_class)
+        p = precision_score(y_true=labels, y_pred=predicted_class)
+        r = recall_score(y_true=labels, y_pred=predicted_class)
+        f_star = 0 if (p + r - p * r) == 0 else p * r / (p + r - p * r)
         report = classification_report(labels, predicted_class)
 
-        result = {'eval_loss': eval_loss,
-                  'simple_accuracy': simple_accuracy,
-                  'f1_score': f1}
+        tn, fp, fn, tp = confusion_matrix(y_true=labels, y_pred=predicted_class).ravel()
+
+        result = {
+          'eval_loss': eval_loss,
+          'simple_accuracy': simple_accuracy,
+          'f1_score': f1,
+          'precision': round(p * 100, 2),
+          'recall' : round(r * 100, 2),
+          'f1': round(f1 * 100, 2),
+          'fstar': round(f_star * 100, 2),
+          'tn' : tn,
+          'fp' : fp,
+          'fn' : fn,
+          'tp' : tp
+        }
 
         with open(self.output_path, "a+") as writer:
             tqdm.write("***** Eval results after epoch {} *****".format(epoch))

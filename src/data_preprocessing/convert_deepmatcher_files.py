@@ -68,6 +68,18 @@ def full_join_except_id(row: pd.Series):
 
 if __name__ == "__main__":
 
+  # dataset_dir = [
+  #   ('../original/Dirty/iTunes-Amazon/', 'dirty_itunes_amazon'),
+  #   ('../original/Structured/Beer/', 'structured_beer'),
+  #   ('../original/Structured/DBLP-ACM/', 'structured_dblp_acm'),
+  #   ('../original/Structured/DBLP-GoogleScholar/', 'structured_dblp_scholar'),
+  #   ('../original/Structured/Fodors-Zagats/', 'structured_fodors_zagats'),
+  #   ('../original/Structured/iTunes-Amazon/', 'structured_itunes_amazon'),
+  #   ('../original/Structured/Walmart-Amazon/', 'structured_walmart_amazon'),
+  #   ('../original/Textual/Abt-Buy/', 'textual_abt_buy'),
+  #   ('../original/Textual/Company/', 'textual_company')
+  # ]
+
     parser = argparse.ArgumentParser(description='Convert Deepmatcher-Files')
 
     parser.add_argument("--data_dir", default=None, type=str, required=True,
@@ -94,7 +106,7 @@ if __name__ == "__main__":
                                       os.path.join(args.data_dir, "dev.tsv"),
                                       abt_buy_join_left, abt_buy_join_right)
 
-    if args.data_dir.endswith("company"):
+    elif args.data_dir.endswith("company"):
         convert_deepmatcher_structure(os.path.join(args.data_dir, "deep_matcher", "train.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableA.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableB.csv"),
@@ -113,7 +125,7 @@ if __name__ == "__main__":
                                       os.path.join(args.data_dir, "dev.tsv"),
                                       company_join, company_join)
 
-    if args.data_dir.endswith("dirty_amazon_itunes"):
+    elif args.data_dir.endswith("dirty_amazon_itunes"):
         convert_deepmatcher_structure(os.path.join(args.data_dir, "deep_matcher", "train.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableA.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableB.csv"),
@@ -132,7 +144,7 @@ if __name__ == "__main__":
                                       os.path.join(args.data_dir, "dev.tsv"),
                                       full_join_except_id, full_join_except_id)
 
-    if args.data_dir.endswith("dirty_walmart_amazon"):
+    elif args.data_dir.endswith("dirty_walmart_amazon"):
         convert_deepmatcher_structure(os.path.join(args.data_dir, "deep_matcher", "train.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableA.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableB.csv"),
@@ -151,7 +163,7 @@ if __name__ == "__main__":
                                       os.path.join(args.data_dir, "dev.tsv"),
                                       full_join_except_id, full_join_except_id)
 
-    if args.data_dir.endswith("dirty_dblp_acm"):
+    elif args.data_dir.endswith("dirty_dblp_acm"):
         convert_deepmatcher_structure(os.path.join(args.data_dir, "deep_matcher", "train.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableA.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableB.csv"),
@@ -170,7 +182,7 @@ if __name__ == "__main__":
                                       os.path.join(args.data_dir, "dev.tsv"),
                                       full_join_except_id, full_join_except_id)
 
-    if args.data_dir.endswith("dirty_dblp_scholar"):
+    elif args.data_dir.endswith("dirty_dblp_scholar"):
         convert_deepmatcher_structure(os.path.join(args.data_dir, "deep_matcher", "train.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableA.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableB.csv"),
@@ -189,7 +201,7 @@ if __name__ == "__main__":
                                       os.path.join(args.data_dir, "dev.tsv"),
                                       full_join_except_id, full_join_except_id)
 
-    if args.data_dir.endswith("amazon_google"):
+    elif args.data_dir.endswith("amazon_google"):
         convert_deepmatcher_structure(os.path.join(args.data_dir, "deep_matcher", "train.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableA.csv"),
                                       os.path.join(args.data_dir, "deep_matcher", "tableB.csv"),
@@ -207,3 +219,24 @@ if __name__ == "__main__":
                                       os.path.join(args.data_dir, "deep_matcher", "tableB.csv"),
                                       os.path.join(args.data_dir, "dev.tsv"),
                                       full_join_except_id, full_join_except_id)
+    else:
+        convert_deepmatcher_structure(
+          os.path.join(args.data_dir, "deep_matcher", "train.csv"),
+          os.path.join(args.data_dir, "deep_matcher", "tableA.csv"),
+          os.path.join(args.data_dir, "deep_matcher", "tableB.csv"),
+          os.path.join(args.data_dir, "train.tsv"),
+          full_join_except_id, full_join_except_id)
+
+        convert_deepmatcher_structure(
+          os.path.join(args.data_dir, "deep_matcher", "test.csv"),
+          os.path.join(args.data_dir, "deep_matcher", "tableA.csv"),
+          os.path.join(args.data_dir, "deep_matcher", "tableB.csv"),
+          os.path.join(args.data_dir, "test.tsv"),
+          full_join_except_id, full_join_except_id)
+
+        convert_deepmatcher_structure(
+          os.path.join(args.data_dir, "deep_matcher", "valid.csv"),
+          os.path.join(args.data_dir, "deep_matcher", "tableA.csv"),
+          os.path.join(args.data_dir, "deep_matcher", "tableB.csv"),
+          os.path.join(args.data_dir, "dev.tsv"),
+          full_join_except_id, full_join_except_id)
